@@ -2,6 +2,7 @@ package org.example;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -34,5 +35,9 @@ public class Main {
                 afterSuiteSuiteCount++;
             }
         }
+
+        System.out.println("сколько было всего " + Arrays.stream(methods).count());
+        System.out.println("сколько прошло успешно " + (methodTestList.size() + beforeSuiteCount + afterSuiteSuiteCount));
+        System.out.println("сколько упало " + (Arrays.stream(methods).count() - methodTestList.size() - beforeSuiteCount - afterSuiteSuiteCount));
     }
 }
