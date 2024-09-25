@@ -1,8 +1,6 @@
 package org.example;
 
-import org.example.annotations.AfterSuite;
-import org.example.annotations.BeforeSuite;
-import org.example.annotations.Test;
+import org.example.annotations.*;
 
 public class TestClass {
 
@@ -34,5 +32,15 @@ public class TestClass {
     @AfterSuite
     public static void method6() {
         System.out.println(6);
+    }
+
+    @Before
+    public static void method7() {
+        System.out.println(7);
+    }
+
+    @After
+    public static void method8() {
+        System.out.println(8);
     }
 }

@@ -1,8 +1,6 @@
 package org.example;
 
-import org.example.annotations.AfterSuite;
-import org.example.annotations.BeforeSuite;
-import org.example.annotations.Test;
+import org.example.annotations.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -15,7 +13,9 @@ public class Main {
 
         Class cl = TestClass.class;
         Method[] methods = cl.getDeclaredMethods();
+        List<Method> methodBeforeTestList = new ArrayList<>();
         List<Method> methodTestList = new ArrayList<>();
+        List<Method> methodAfterTestList = new ArrayList<>();
         int beforeSuiteCount = 0;
         int afterSuiteSuiteCount = 0;
         for (Method method : methods) {
@@ -24,12 +24,28 @@ public class Main {
                     beforeSuiteCount++;
             }
 
+            if (method.isAnnotationPresent(Before.class)) {
+                methodBeforeTestList.add(method);
+            }
+
             if (method.isAnnotationPresent(Test.class)) {
                 methodTestList.add(method);
             }
+
+            if (method.isAnnotationPresent(After.class)) {
+                methodAfterTestList.add(method);
+            }
+        }
+
+        for (Method methodBeforeTest : methodBeforeTestList.stream().sorted(Comparator.comparing(method->method.getAnnotation(Before.class).priority())).toList().reversed()) {
+            methodBeforeTest.invoke(null);
         }
 
         for (Method methodTest : methodTestList.stream().sorted(Comparator.comparing(method->method.getAnnotation(Test.class).priority())).toList().reversed()) {
+            methodTest.invoke(null);
+        }
+
+        for (Method methodTest : methodAfterTestList.stream().sorted(Comparator.comparing(method->method.getAnnotation(After.class).priority())).toList().reversed()) {
             methodTest.invoke(null);
         }
 
@@ -41,7 +57,7 @@ public class Main {
         }
 
         System.out.println("сколько было всего " + Arrays.stream(methods).count());
-        System.out.println("сколько прошло успешно " + (methodTestList.size() + beforeSuiteCount + afterSuiteSuiteCount));
-        System.out.println("сколько упало " + (Arrays.stream(methods).count() - methodTestList.size() - beforeSuiteCount - afterSuiteSuiteCount));
+        System.out.println("сколько прошло успешно " + (methodTestList.size() + beforeSuiteCount + afterSuiteSuiteCount + methodBeforeTestList.size() + methodAfterTestList.size()));
+        System.out.println("сколько упало " + (Arrays.stream(methods).count() - methodTestList.size() - beforeSuiteCount - afterSuiteSuiteCount - methodBeforeTestList.size() - methodAfterTestList.size()));
     }
 }
