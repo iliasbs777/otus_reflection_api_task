@@ -19,6 +19,7 @@ public class TestClass {
         System.out.println(3);
     }
 
+    @Disabled
     @Test(priority = 3)
     public static void method4() {
         System.out.println(4);

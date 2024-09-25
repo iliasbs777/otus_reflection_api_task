@@ -42,11 +42,13 @@ public class Main {
         }
 
         for (Method methodTest : methodTestList.stream().sorted(Comparator.comparing(method->method.getAnnotation(Test.class).priority())).toList().reversed()) {
-            methodTest.invoke(null);
+            if (!methodTest.isAnnotationPresent(Disabled.class)) {
+                methodTest.invoke(null);
+            }
         }
 
-        for (Method methodTest : methodAfterTestList.stream().sorted(Comparator.comparing(method->method.getAnnotation(After.class).priority())).toList().reversed()) {
-            methodTest.invoke(null);
+        for (Method methodAfterTest : methodAfterTestList.stream().sorted(Comparator.comparing(method->method.getAnnotation(After.class).priority())).toList().reversed()) {
+            methodAfterTest.invoke(null);
         }
 
         for (Method method : methods) {
