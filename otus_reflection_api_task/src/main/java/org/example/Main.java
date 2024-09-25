@@ -1,5 +1,9 @@
 package org.example;
 
+import org.example.annotations.AfterSuite;
+import org.example.annotations.BeforeSuite;
+import org.example.annotations.Test;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;

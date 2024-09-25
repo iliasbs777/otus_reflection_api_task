@@ -1,5 +1,9 @@
 package org.example;
 
+import org.example.annotations.AfterSuite;
+import org.example.annotations.BeforeSuite;
+import org.example.annotations.Test;
+
 public class TestClass {
 
     @BeforeSuite
