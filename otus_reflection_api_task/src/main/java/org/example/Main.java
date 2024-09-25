@@ -9,6 +9,12 @@ public class Main {
         Method[] methods = cl.getDeclaredMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(BeforeSuite.class)) {
+                //for (int i = 0; i < method.getAnnotation(BeforeSuite.class).count(); i++) {
+                    method.invoke(null);
+                //}
+            }
+
+            if (method.isAnnotationPresent(AfterSuite.class)) {
                 method.invoke(null);
             }
         }

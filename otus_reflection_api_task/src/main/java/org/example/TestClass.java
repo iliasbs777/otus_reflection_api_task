@@ -7,16 +7,17 @@ public class TestClass {
         System.out.println(1);
     }
 
+    @Test(priority = 10)
     public static void method2() {
         System.out.println(2);
     }
 
-    @BeforeSuite
+    @Test(priority = 1)
     public static void method3() {
         System.out.println(3);
     }
 
-    @BeforeSuite
+    @AfterSuite
     public static void method4() {
         System.out.println(4);
     }
