@@ -12,13 +12,23 @@ public class TestClass {
         System.out.println(2);
     }
 
-    @Test(priority = 1)
+    @Test
     public static void method3() {
         System.out.println(3);
     }
 
-    @AfterSuite
+    @Test(priority = 3)
     public static void method4() {
         System.out.println(4);
+    }
+
+    @AfterSuite
+    public static void method5() {
+        System.out.println(5);
+    }
+
+    @AfterSuite
+    public static void method6() {
+        System.out.println(6);
     }
 }
