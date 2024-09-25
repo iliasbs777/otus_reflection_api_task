@@ -17,6 +17,7 @@ public class Main {
         List<Method> methodTestList = new ArrayList<>();
         List<Method> methodAfterTestList = new ArrayList<>();
         int beforeSuiteCount = 0;
+        int methodTestsWithOutDisabledCount = 0;
         int afterSuiteSuiteCount = 0;
         for (Method method : methods) {
             if (method.isAnnotationPresent(BeforeSuite.class) && beforeSuiteCount < 1) {
@@ -44,6 +45,7 @@ public class Main {
         for (Method methodTest : methodTestList.stream().sorted(Comparator.comparing(method->method.getAnnotation(Test.class).priority())).toList().reversed()) {
             if (!methodTest.isAnnotationPresent(Disabled.class)) {
                 methodTest.invoke(null);
+                methodTestsWithOutDisabledCount++;
             }
         }
 
@@ -59,7 +61,7 @@ public class Main {
         }
 
         System.out.println("сколько было всего " + Arrays.stream(methods).count());
-        System.out.println("сколько прошло успешно " + (methodTestList.size() + beforeSuiteCount + afterSuiteSuiteCount + methodBeforeTestList.size() + methodAfterTestList.size()));
-        System.out.println("сколько упало " + (Arrays.stream(methods).count() - methodTestList.size() - beforeSuiteCount - afterSuiteSuiteCount - methodBeforeTestList.size() - methodAfterTestList.size()));
+        System.out.println("сколько прошло успешно " + (methodTestsWithOutDisabledCount + beforeSuiteCount + afterSuiteSuiteCount + methodBeforeTestList.size() + methodAfterTestList.size()));
+        System.out.println("сколько упало " + (Arrays.stream(methods).count() - methodTestsWithOutDisabledCount - beforeSuiteCount - afterSuiteSuiteCount - methodBeforeTestList.size() - methodAfterTestList.size()));
     }
 }
