@@ -1,4 +1,4 @@
-package org.example.annotations;
+package lab.reflection.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,5 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AfterSuite {
+public @interface After {
+    int priority() default 1;
 }

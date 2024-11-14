@@ -1,12 +1,22 @@
-package org.example;
+package lab.reflection;
 
-import org.example.annotations.*;
+import lab.reflection.annotations.*;
 
 public class TestClass {
 
+//    @BeforeSuite
+//    public static void method0() {
+//        System.out.println(0);
+//    }
+
     @BeforeSuite
     public static void method1() {
-        System.out.println(1);
+        System.out.println("BeforeSuite");
+    }
+
+    @Test(priority = 11)
+    public static void method11() {
+        System.out.println(11);
     }
 
     @Test(priority = 10)
@@ -27,21 +37,21 @@ public class TestClass {
 
     @AfterSuite
     public static void method5() {
-        System.out.println(5);
+        System.out.println("AfterSuite");
     }
 
-    @AfterSuite
-    public static void method6() {
-        System.out.println(6);
-    }
+//    @AfterSuite
+//    public static void method6() {
+//        System.out.println(6);
+//    }
 
     @Before
     public static void method7() {
-        System.out.println(7);
+        System.out.println("before");
     }
 
     @After
     public static void method8() {
-        System.out.println(8);
+        System.out.println("after");
     }
 }
